@@ -1,0 +1,25 @@
+[general]
+creator=R package 'raster'
+created=2021-04-09 15:28:31
+[georeference]
+nrows=2198
+ncols=2198
+xmin=-18135694.0766997
+ymin=-17149444.8671982
+xmax=18131305.9233003
+ymax=19117555.1328018
+projection=+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84
+[data]
+datatype=FLT4S
+byteorder=little
+nbands=5
+bandorder=BIL
+minvalue=-53.8719482421875:-6.03583812713623:-24.1965217590332:0:0
+maxvalue=24.2999992370605:48.6150779724121:36.200798034668:8621.9462890625:359.836303710938
+nodatavalue=-3.4e+38
+[legend]
+legendtype=
+values=
+color=
+[description]
+layername=minTCM:maxTWM:meanTWQ:MAP:forest
