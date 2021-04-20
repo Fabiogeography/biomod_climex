@@ -13,7 +13,7 @@ id <- "TA" ## A unique identifier for the model run (e.g. indicating species nam
 eval.stat <- "ROC" ## Choice of evaluation statistic. Support is provided here for ROC, TSS, and KAPPA, though others are possible. Only AUC can be calculated without a choice of threshold. See ?BIOMOD_Modeling for all options that could be applied to biomod results and modEvAmethods("multModEv") for all options that could be applied to climex results using this code.
 incl.climex <- T ## Include CLIMEX in ensemble even if its evaluation statistic falls below the threshold
 thresh <- 0.8 ## The value above which models should be included in the ensemble.
-wd <- "E:/NON_PROJECT/TUTA_ABSOLUTA/DISTRIBUTION_MODELS/R/TO_SHARE_GITHUB/"
+wd <- ""
 wd.out <- paste0(wd,id,"/")
 
 ##### Load in rasters of biomod2 model projections and save the ones to be averaged as tifs #####
@@ -78,9 +78,9 @@ wcv <- calc(rs, fun=REAT::cv, weighting=wts, is.sample=F, wmean=T) ## see docume
 writeRaster(wcv, paste0(wd.out, "/wcv_", eval.stat, "_", id, ".tiff"))
 
 ##### If you have trouble installing REAT because the package version does not match your version of R try this: #####
-library(rlang, lib.loc=...)
-library(devtools, lib.loc=...) 
+library(rlang, lib.loc="")
+library(devtools, lib.loc="") 
 
 install_version("REAT", version = "3.0.2",
                 repos = "http://cran.us.r-project.org",
-                lib=...)
+                lib="")
