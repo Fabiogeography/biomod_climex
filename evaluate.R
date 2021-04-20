@@ -10,7 +10,7 @@ library(biomod2) ## To run and evaluate biomod species distribution models
 library(dplyr) ## For function written get_PAtab
 library(modEvA) ## Calculate evaluation satistics
 
-wd <- "E:/NON_PROJECT/TUTA_ABSOLUTA/DISTRIBUTION_MODELS/R/TO_SHARE_GITHUB/"
+wd <- ""
 
 ##### Set up run #####
 nreps <- 4 ## Number of pseudo-absence datasets created and used
@@ -40,7 +40,7 @@ env.p <- stack(paste0(wd, "env_p")) ### Data covering the region where the speci
 
 ### If the Maxent.Phillips method of constructing an SDM is to be used, give the pathway to the folder where the software is saved
 myBiomodOption <- BIOMOD_ModelingOptions(
-  MAXENT.Phillips = list( path_to_maxent.jar = "E:/NON_PROJECT/TUTA_ABSOLUTA/DISTRIBUTION_MODELS/") ## Ensure there are no spaces or non-alphanumeric characters in this pathway.
+  MAXENT.Phillips = list( path_to_maxent.jar = "") ## Ensure there are no spaces or non-alphanumeric characters in this pathway.
 )
 
 if (isTRUE(generate.SDM)) {
