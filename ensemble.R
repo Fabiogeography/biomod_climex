@@ -13,7 +13,7 @@ id <- "TA" ## A unique identifier for the model run (e.g. indicating species nam
 eval.stat <- "ROC" ## Choice of evaluation statistic. Support is provided here for ROC, TSS, and KAPPA, though others are possible. Only AUC can be calculated without a choice of threshold. See ?BIOMOD_Modeling for all options that could be applied to biomod results and modEvAmethods("multModEv") for all options that could be applied to climex results using this code.
 incl.climex <- T ## Include CLIMEX in ensemble even if its evaluation statistic falls below the threshold
 thresh <- 0.8 ## The value above which models should be included in the ensemble.
-wd <- ""
+wd <- "E:/NON_PROJECT/TUTA_ABSOLUTA/DISTRIBUTION_MODELS/R/TO_SHARE_GITHUB/"
 wd.out <- paste0(wd,id,"/")
 
 ##### Load in rasters of biomod2 model projections and save the ones to be averaged as tifs #####
@@ -77,10 +77,26 @@ writeRaster(wmean, paste0(wd.out, "/wmean_", eval.stat, "_", id,".tiff"))
 wcv <- calc(rs, fun=REAT::cv, weighting=wts, is.sample=F, wmean=T) ## see documentation of REAT::cv for how weights are calculated
 writeRaster(wcv, paste0(wd.out, "/wcv_", eval.stat, "_", id, ".tiff"))
 
-##### If you have trouble installing REAT because the package version does not match your version of R try this: #####
-library(rlang, lib.loc="")
-library(devtools, lib.loc="") 
+### Apply a suitability threshold and calculate the aerial coverage of each SDM technique including CLIMEX
+suit.thresh <- rep(0.1,length(names(rs))) ## Replace lines 81 and 82 with a list of suitability thresholds for each SDM projection, each with the name of the relevant SDM projection
+names(suit.thresh) <- names(rs)
+
+rs.area <- vector() ## Where the areas will be stored. The units are the same as the projection of the rs raster stack. 
+
+for(n in names(rs)) {
+  x <- rs[[n]]
+  t <- suit.thresh[names(x)] ## find the suitability threshold for the projection
+  reclass <- matrix(c(0,t,0, t,1,1), ncol=3, byrow=T) ## create a matrix with which to reclassify the projection into suitable (1) or unsuitable (0)
+  xx <- reclassify(x, reclass)
+  a <- area(xx) ## Creates a raster of cell area (only useful for rasters with long/lat coordinates)
+  z <- as.data.frame(zonal(a, xx, 'sum')) ## Calculates the sum of the area raster for the cells with a suitabilty value of 1.
+  rs.area[n] <- z[z$zone==1,"sum"] ## The total area of all cells with a suitability value of 1
+}
+
+##### If you have trouble installing REAT because the package version does not match your version of R try the following code, replacing ... with the location of your R libraries: #####
+library(rlang, lib.loc=...)
+library(devtools, lib.loc=...) 
 
 install_version("REAT", version = "3.0.2",
                 repos = "http://cran.us.r-project.org",
-                lib="")
+                lib=...)
