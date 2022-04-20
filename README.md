@@ -8,3 +8,5 @@ The codes are data are from 'Combining traditional Species Distribution Models a
 The distribution data provided (pres.csv and presence_pseudoabs.csv) are the subset of data used in Early et al. that can be shared publically, and not the full dataset used in the paper. The SDMs produced by this code will not match those in the paper, and should not be considered the most accurate projections available. 
 
 This approach is only appropriate for comparing SDMs and CLIMEX models made with same environmental data.
+
+wmean_climex_maxTWM.tiff is the best projection of year-round suitability for T. absoluta, based on variable set 3 ensemble SDM including CLIMEX. cv_climex_maxTWM.tiff is the model-based uncertainty associated with these projections. Both are in figure 5 of the paper. 
